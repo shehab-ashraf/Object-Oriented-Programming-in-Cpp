@@ -1,4 +1,4 @@
-![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `What are Classes and Objects?`
+# **`What are Classes and Objects?`**
 
 Classes are used to create user-defined data types. The predefined data types in C++ are classes themselves.
 We can use these basic data types to create our own class.
@@ -251,3 +251,152 @@ int Rectangle::area(){
 **Overloading**
 >Member functions can be overloaded just like any other function.
  This means that multiple member functions can exist with the same name on the same scope, but must have different arguments.
+ 
+ 
+ # Constructors
+ 
+ **What is a Constructor?**
+ >As the name suggests, the constructor is used to construct the object of a class.
+ >A constructor’s name must be exactly the same as the name of its class.
+ >The constructor is a special function because it does not have a return type.
+ > We do not even need to write void as the return type. It is a good practice to declare/define it as the first member function.
+
+
+**Default Constructor**
+>In a default constructor, we define the default values for the data members of the class.
+> Hence, the constructor creates an object in which the data members are initialized to their default values.
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Date {
+  int day;
+  int month;
+  int year;
+
+  public:
+  // Default constructor
+  Date(){
+    // We must define the default values for day, month, and year
+    day = 0;
+    month = 0;
+    year = 0;
+  }
+
+  // A simple print function
+  void printDate(){ 
+    cout << "Date: " << day << "/" << month << "/" << year << endl;
+  }
+};
+
+int main(){
+  // Call the Date constructor to create its object;
+  
+  Date d; // Object created with default values!
+  d.printDate();
+}
+  
+```
+Notice that when we created a Date object, we don’t treat the constructor as a function and write this:
+```c++
+d.Date()
+```
+We create the object just like we create an integer or string object. It’s that easy!
+The default constructor does not need to be explicitly defined. Even if we don’t create it,
+the C++ compiler will call a default constructor and set data members to some junk values.
+
+# Parameterized Constructor
+>The default constructor isn’t all that impressive. Sure, we could use set functions to set the values for day, month and year ourselves, but this step can be avoided using a parameterized constructor.
+In a parameterized constructor, we pass arguments to the constructor and set them as the values of our data members.
+
+**We are basically overriding the default constructor to put our preferred values for the data members.**
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Date {
+  int day;
+  int month;
+  int year;
+
+  public:
+  // Default constructor
+  Date(){
+    // We must define the default values for day, month, and year
+    day = 0;
+    month = 0;
+    year = 0;
+  }
+  
+  // Parameterized constructor
+  Date(int d, int m, int y){
+    // The arguments are used as values
+    day = d;
+    month = m;
+    year = y;
+  }
+
+  // A simple print function
+  void printDate(){ 
+    cout << "Date: " << day << "/" << month << "/" << year << endl;
+  }
+};
+
+int main(){
+  // Call the Date constructor to create its object;
+  
+  Date d(1, 8, 2018); // Object created with specified values!
+  d.printDate();
+}
+```
+```
+Output : Date: 1/8/2021
+```
+
+# this Pointer
+>The this pointer exists for every class. It points to the class object itself.
+We use the pointer when we have an argument which has the same name as a data member.
+Since this is a pointer, we use the -> operator to access members instead of(.)
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Date {
+  int day;
+  int month;
+  int year;
+
+  public:
+  // Default constructor
+  Date(){
+    // We must define the default values for day, month, and year
+    day = 0;
+    month = 0;
+    year = 0;
+  }
+  
+  // Parameterized constructor
+  Date(int day, int month, int year){
+    // Using this pointer
+    this->day = day;
+    this->month = month;
+    this->year = year;
+  }
+
+  // A simple print function
+  void printDate(){ 
+    cout << "Date: " << day << "/" << month << "/" << year << endl;
+  }
+};
+
+int main(){
+  // Call the Date constructor to create its object;
+  
+  Date d(1, 8, 2018); // Object created with specified values!
+  d.printDate();
+}
+  
+```
